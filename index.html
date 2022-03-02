@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <script src="index.js"></script>
+        <style>
+            .tile {
+                display: block;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: bold;
+                font-family: monospace;
+                box-sizing: border-box;
+                color: white;
+                user-select: none;
+                margin: 1px;
+                padding: 4px;
+            }
+            .correct {
+                background-color: #538d4e;
+            }
+            .present {
+                background-color: #b59f3b;
+            }
+            .absent {
+                background-color: #787c7e;
+            }
+            .empty {
+                box-shadow:inset 0px 0px 0px 1px #d3d6da;
+            }
+            .over {
+                background-color: rgb(173, 27, 27)
+            }
+            @font-face { font-family: Consolas; src: url('./Consolas.ttf'); } 
+        </style>
+        <script>
+            window.onload = async function () {
+                var button = document.getElementById('test')
+                var input = document.getElementById('input')
+                let answer = randomStr()
+
+                console.log(answer)
+                let attempt = 1
+                
+                input.value = ''
+                button.addEventListener('click', () => {
+                    check(answer, attempt++)
+                    input.focus()
+                })
+                input.addEventListener('keydown', (ev => {
+                    if (ev.keyCode == 13) { 
+                        check(answer, attempt++) 
+                        input.focus()
+                    }
+                }))
+
+                var reset = document.getElementById('reset')
+                var clear = document.getElementById('clear')
+
+                clear.addEventListener('click', () => {
+                    var output = document.getElementById('output')
+                    output.innerHTML = ''
+                })
+
+                reset.addEventListener('click', () => {
+                    window.location.reload();
+                })
+            }
+
+        </script>
+    </head>
+    <body>
+        <h2 style="display: none;" id="win">
+            🥳 You guess the base64 ! Congratulation ! 🎉
+        </h2>
+        <div>
+            <h1>
+                Base64DLE (real)
+            </h1>
+            <h3>
+                guess the base64!!!
+            </h3>
+        </div>
+        <div>
+            <input type="text" id="input" placeholder="guess">
+            <button id="test">check</button>
+        </div>
+        <div style="padding-top: 5px;">
+            <button id="reset">reset</button>
+            <button id="clear">clear</button>
+            <h3 id="tries">Tries: 0</h3>
+        </div>
+
+        <div id="output">
+
+        </div>
+    </body>
+</html>
